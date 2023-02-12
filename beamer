@@ -1,0 +1,517 @@
+% natbib guide (https://gking.harvard.edu/files/natnotes2.pdf)
+% \citet     #textual citations, print the abbreviated author list
+% \citet*    #textual citations, print the full author list
+% \citep     #parenthetical citations, print the abbreviated author list
+% \citep*    #parenthetical citations, print the full author list
+% \citealt    #the same as \citet but without any parentheses.
+% \citealp    #the same as \citep but without any parentheses. 
+% \citeauthor{ale91}         #Alex et al.
+% \citeauthor*{ale91}        #Alex, Mathew, and Ravi
+% \citeyear{ale91}           #1991 
+% \citeyearpar{ale91}        #(1991)
+
+\documentclass[english, xcolor=dvipsnames, aspectratio=169]{beamer}
+
+% Text encoding
+\usepackage[english]{babel}
+
+% Justify text (package and function)
+% \apptocmd{command}{code}{success}{failure}
+\usepackage{ragged2e}
+\apptocmd{\frame}{}{\justifying}{} 
+% Justify text in \item
+\newcommand{\itemj}{\item \justifying}
+
+% If...else package
+\usepackage{ifthen}
+
+% Package to set transparent background image
+\usepackage{tikz}
+
+% Include image package
+\usepackage{graphicx}
+% Set default path for images
+\graphicspath{ {./imgs/} }
+% Set figure number when included
+\setbeamertemplate{caption}[numbered]
+
+%math
+\usepackage{amsmath}
+\usepackage{mathrsfs}
+
+% Bibliography packages
+\usepackage[sort, round]{natbib}
+\bibliographystyle{plainnat}
+
+% Define colors variables
+\definecolor{red}{rgb}{0.631, 0.094, 0.094} % primary color
+\definecolor{grey}{rgb}{0.3686, 0.5255, 0.6235} % secondary color
+
+% Set theme palette colors
+\setbeamercolor{palette primary}{bg=red,fg=white}
+\setbeamercolor{palette secondary}{bg=red,fg=white}
+\setbeamercolor{palette tertiary}{bg=red,fg=white}
+\setbeamercolor{palette quaternary}{bg=red,fg=white}
+% strucure means itemize, enumerate, etc
+\setbeamercolor{structure}{fg=red} 
+
+% Set bibliography colors
+\setbeamercolor{bibliography item}{fg=red}
+\setbeamercolor{bibliography entry author}{fg=black}
+\setbeamercolor{bibliography entry title}{fg=black}
+\setbeamercolor{bibliography entry location}{fg=black}
+\setbeamercolor{bibliography entry note}{fg=black}
+% Replaces book icon in bibliography with enumeration
+\setbeamertemplate{bibliography item}{[\theenumiv]}
+
+% Table of contents style
+% \setbeamertemplate{section in toc}[sections numbered]
+% \setbeamertemplate{subsection in toc}[subsections numbered]
+\setbeamertemplate{section in toc}[circle]
+\setbeamertemplate{subsection in toc}[ball unnumbered]
+
+% Header with navigation bar
+\setbeamertemplate{headline}
+{
+    \leavevmode
+    \hbox{
+    \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex]{palette quaternary}
+    \insertsectionnavigationhorizontal{\paperwidth}{}{\hskip0pt plus1filll}
+    \end{beamercolorbox} 
+    }
+}
+% Footer with custom caption
+\setbeamertemplate{footline}
+{
+    \leavevmode
+    \hbox{
+    \begin{beamercolorbox}[wd=.33\paperwidth,ht=2.6ex,dp=1ex,center]{palette quaternary}
+    \usebeamerfont{author in head/foot}{Nomun Bukh-Ochir}
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[wd=.33\paperwidth,ht=2.6ex,dp=1ex,center]{palette quaternary}
+    \usebeamerfont{institute in head/foot}{Northern Illinois University}
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[wd=.33\paperwidth,ht=2.6ex,dp=1ex,center]{palette quaternary}
+    \insertframenumber{} / \inserttotalframenumber
+    \end{beamercolorbox}}
+    \vskip0pt
+}
+
+% Global Background must be put in preamble
+\usebackgroundtemplate
+{
+    \tikz\node[opacity=0.3]{\includegraphics[height=\paperheight, width=\paperwidth]{niu-background.png}};
+}
+
+% One line command to print table of contents - two parameters for modes
+\newcommand{\customToC}[2]
+{
+    \begin{frame}{Overview}
+    \tableofcontents[#1,#2]
+    \end{frame}
+}
+
+% Command to plot centered figure
+% Parameters: #1=image name, #2=caption 
+\newcommand{\includefigure}[2]
+{
+    \begin{figure}[h]
+    \caption{#2}
+    \centering
+    \includegraphics[width=0.5\textwidth]{#1}
+    \end{figure}
+}
+
+% Command to set section name as variable (\renewcommand to update)
+\newcommand{\sectiontitle}{}
+% Command to set subsection name as variable (\renewcommand to update)
+\newcommand{\subsectiontitle}{}
+
+% Title page
+\title{STATE GUN POLICY AND CROSS-STATE EXTERNALITIES: EVIDENCE FROM CRIME GUN TRACING}
+\subtitle{BRIAN KNIGHT*}
+\author{*Brown University, Department of Economics, Box B, Providence, RI 02912}
+\institute{American Economic Journal: Economic Policy 2013, 5(4): 200–229 \\
+http://dx.doi.org/10.1257/pol.5.4.200}
+
+
+\begin{document}
+
+\frame{\titlepage}
+
+% Complete table of contents (ToC)
+% \customToC{hideallsubsections}{}
+\customToC{}{}
+
+% Section name and highlighted ToC
+\renewcommand{\sectiontitle}{Introduction}
+\section*{\sectiontitle}
+%\customToC{currentsection,hideothersubsections}{}
+
+\begin{frame}{\sectiontitle}
+\begin{itemize}
+    \item \textbf{Motivation} - One trafficker reporting buying guns on the primary market in Virginia, which has relatively weak regulations, for \$150–200 and reselling them illegally in New York, which has relatively strict regulations, for \$500–600.
+    \item \textbf{Research purpose} - This paper examines these issues, cross-state externalities and heterogeneous policies, in the context of gun policy in the United States.
+    \item \textbf{Brief summary}
+    \begin{itemize}
+        \item It is found that guns flow from states with weak regulations to states with strict regulations. Hence, necessary condition for the existence of cross-state externalities is satisfied.
+        \item A role for proximity is found, with more trade between nearby states, then it is noted that any externalities have a spatial component.
+        \item Externalities are significant, with high possession rates by criminals being linked to weak regulations in nearby states.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+% Section name and highlighted ToC
+%\renewcommand{\subsectiontitle}{Subsection}
+%\subsection{\subsectiontitle}
+%\begin{frame}{\subsectiontitle}
+%    \begin{itemize}
+%        \itemj Justified text item with reference \citet{goodfellow2014generative} 
+%        \item This is some unjustified text in the frame. This is some unjustified text in the frame. %This is some unjustified text in the frame. This is some unjustified text in the frame. This is some %unjustified text in the frame.
+%    \end{itemize}
+%    
+%    % Include figure with caption
+%    % \includefigure{gan_architecture.png}{Figure caption here}
+%        % Include figure with caption
+%    \begin{figure}
+%    \centering
+%        \includegraphics[width=.5\textwidth]{gan_architecture.png}
+%        \caption{GAN structure}
+%        \label{fig:gan_structure}
+%    \end{figure}
+%\end{frame}
+
+% Section name and highlighted ToC
+\renewcommand{\sectiontitle}{Background on Gun Laws}
+\section{\sectiontitle}
+%\customToC{currentsection,hideothersubsections}{}
+
+\begin{frame}{\sectiontitle}
+
+        \begin{table}[ht] 
+        \centering
+        \begin{tabular}{p{0.2\linewidth} | p{0.75\linewidth}}
+            \hline
+ Regulation      &    Additional information \\ 
+            \hline
+ Straw purchase liability     &    Purchasing a gun on behalf of somebody else is a federal crime. Some regions have passed laws                                       allowing for local policing and and prosecution of straw purchasers. \\
+ Falsifying purchaser 
+ information liability        &    It is a felony under federal law to provide false information when purchasing a gun. Some states                                    allow for local prosecution of offenders. \\
+ Background check 
+ failure liability            &    A dealer who fails to conduct a background check has committed a misdemeanor under federal law.                                     Some states allow for prosecution and incarceration of these offenders. \\
+
+            \hline
+     
+        \end{tabular}
+        \end{table}
+\end{frame}
+
+\begin{frame}{\sectiontitle \emph{...continues}}
+
+        \begin{table}[ht] 
+        \centering
+        \begin{tabular}{p{0.2\linewidth} | p{0.75\linewidth}}
+            \hline
+ Regulation      &    Additional information \\ 
+            \hline
+ Gun show checks              &    Infrequent sellers of firearms are not required to be licensed under federal law. Several states                                    have attempted to close this “gun show loophole” with a variety of restrictions on casual gun                                       merchants. \\  
+ Required purchaser permit    &    Several states require that all prospective gun purchasers acquire a permit, regardless of                                          whether the dealer has a federal firearms license. This procedure often includes a background                                       check. \\
+ Local discretion to deny 
+ carry permits                &    Concealed carry permits are available in every state except Illinois and Wisconsin. Some states                                     allow local law enforcement discretion to deny carry permits, even if an individual meets the                                       state and federal requirements. \\
+
+            \hline
+     
+        \end{tabular}
+        \end{table}
+
+\end{frame}
+
+\begin{frame}{\sectiontitle \emph{...continues}}
+
+        \begin{table}[ht] 
+        \centering
+        \begin{tabular}{p{0.2\linewidth} | p{0.75\linewidth}}
+            \hline
+ Regulation      &    Additional information \\ 
+            \hline
+  Misdemeanor restrictions     &    Federal law prohibits gun ownership by individuals convicted of felonies or domestic violence                                       misdemeanors. Some states extend the restriction to those found guilty of other violent                                             misdemeanors. \\
+ Required reporting of lost 
+ or stolen guns               &    Some states require that lost or stolen guns are reported. \\  
+ Local discretion over 
+ gun regulations              &    Eight states currently allow municipalities, cities and countries authority to enact gun control                                    and regulation. \\
+ Dealer inspections by state  &    ATF has inspection authority over licenced firearms dealers, but some states supplement these                                       inspections by allowing or requiring their own. \\
+            \hline
+     
+        \end{tabular}
+        \end{table}
+
+\end{frame}
+
+
+\renewcommand{\sectiontitle}{Literature Review}
+\section{\sectiontitle}
+%\customToC{currentsection,hideothersubsections}{}
+
+\begin{frame}{\sectiontitle}
+\begin{itemize}
+    \item Webster, Vernick, and Hepburn (2001), Cook and Braga (2001), Webster, Vernick, and Bulzacchelli (2009) - states with weak regulations tend to export more guns than states with stricter regulations.
+    \item Kahane (2013) - examines a broader set of the determinants of trade flows such as role of police expenditures, the size of the economy, gangs, contiguity, and remoteness.
+    \item DellaVigna and La Ferrara (2010), Dube, Dube, and García-Ponce (2011), and Chicoine (2011) - trafficking of weapons at the international level.
+    \item Baughman et al. (2001), Kreft and Epling (2007), Lovenheim and Slemrod (2010), and Stehr (2010) - effects within the jurisdiction and spillover effects on neighboring jurisdictions associated with cross-border evasion of regulations.
+    \item This paper provides microfoundations for gun trafficking measurement by building theoretical model.
+\end{itemize}
+
+\end{frame}
+
+\renewcommand{\sectiontitle}{Model of Gun Trafficking}
+\section{\sectiontitle}
+%\customToC{currentsection,hideothersubsections}{}
+
+\begin{frame}{\sectiontitle}
+\begin{itemize}
+    \item The payoff to a trafficker from not purchasing a gun is normalized to equal $V_{td0} = \varepsilon_{td0}$.
+\end{itemize}
+\begin{equation*}
+V_{tds} = \beta + \alpha P_{d} - \gamma r_{s} + \delta X_{s} - \phi 1(\tau > 0) - \theta \tau_{ds} + \xi_{ds} + \nu_{s} + \varepsilon_{tds}    
+\end{equation*}
+
+\begin{itemize}
+    \item The supply of firearms to destination $d$, which equals the number of traffickers times the probability of each trafficker supplying a gun to destination state d from any source state, including the domestic market
+\end{itemize}
+\begin{equation*}
+S(P_{d},r) = N Pr(g_{td}\neq 0) = \frac{N exp(\beta + \alpha P_{d} + \lambda e_{d}(r))}{1 + exp(\beta + \alpha P_{d} + \lambda e_{d}(r))}    
+\end{equation*}
+\begin{itemize}
+    \item Where $r = ( r_{1} , r_{2} , ...)$ is a vector of regulations across all source states and the exposure index $e_{d}(r)$, which depends upon these regulations, is given by
+\end{itemize}
+\begin{equation*}
+    e_{d}(r)=ln\sum_{k}exp(-\gamma r_{k} + \delta X_{k} - \phi 1(\tau>0)-\theta\tau_{dk} + \xi_{dk} + \nu_k)
+\end{equation*}
+
+
+\end{frame}
+
+\begin{frame}{\sectiontitle \emph{...continues}}
+
+\begin{itemize}
+    \item The shift in supply in destination state $d$ in response to an increase in the number of regulations in source states $s$ is proportional to $\lambda$, responsiveness of supply to exposure.
+\end{itemize}
+\begin{equation*}
+    \frac{\partial S(P_{d},r)}{\partial r_{s}}=N Pr(g_{td} \neq 0)[1 - Pr(g_{td} \neq 0)]\lambda\frac{\partial e_{d}(r)}{\partial r_{s}}
+\end{equation*}       
+\begin{itemize}
+    \item Any shift in supply is proportional to the marginal exposure, which equals
+\end{itemize}
+\begin{equation*}
+    \frac{\partial e_{d}(r)}{\partial r_{s}}=-\gamma Pr(g_{td}=s|g_{td}\neq 0) < 0
+\end{equation*}
+\begin{itemize}
+    \item Given a price $P_{d}$, the probability that a given criminal in state $d$ purchases a gun is given by
+\end{itemize}
+\begin{equation*}
+    Pr(g_{cd}=1)=\frac{exp(\nu_{d}-\rho P_{d})}{1+exp(\nu_{d}-\rho P_{d})}
+\end{equation*}
+\end{frame}
+
+\begin{frame}{\sectiontitle \emph{...continues}}
+\begin{itemize}
+    \item One can derive an expression for the externality associated with increasing the number of regulations in source
+state s on destination state d as follows
+\end{itemize}
+\begin{equation*}
+    \frac{\partial o_{d}}{\partial r_{s}}=\frac{\frac{\partial e_{d}(r)}{\partial r_{s}}\lambda (\frac{\rho}{\rho+\alpha}Pr(g_{td}=0)}{(\frac{\alpha}{\rho+\alpha})Pr(g_{td}=0)+(\frac{\rho}{\rho+\alpha})Pr(g_{cd}=0)}
+\end{equation*}
+\begin{itemize}
+    \item Externalities are stronger for nearby states than for distant states, and estimating this spatial parameter $\theta$ will be a key focus of our analysis of trafficking patterns.
+\end{itemize}
+\begin{equation*}
+    \frac{\partial^{2}e_{d}(r)}{\partial r_{s} \partial \tau_{ds}}=-\gamma\theta Pr(g_{td}=s|g_{td} \neq 0)[1-Pr(g_{td} = s|g_{td}\neq 0)]<0
+\end{equation*}
+\end{frame}
+
+\renewcommand{\sectiontitle}{Data}
+\section{\sectiontitle}
+%\customToC{currentsection,hideothersubsections}{}
+
+\begin{frame}{\sectiontitle}
+ \begin{itemize}
+     \item Number of gun recovered crime scenes based upon 49 source and 49 destination states, for a total of 2,352 trade flow observations.
+     \item In total, about one-third of these traced guns were purchased in other states, suggesting that cross-state externalities are significant.
+     \item The index such that the weakest state has a score of 0 and the strictest state has a score of 10.
+ \end{itemize}
+
+\end{frame}
+
+\renewcommand{\sectiontitle}{Selection Issues}
+\section{\sectiontitle}
+%\customToC{currentsection,hideothersubsections}{}
+
+\begin{frame}{\sectiontitle}
+ \begin{itemize}
+     \item Not all guns involved in crimes are recovered by the police.
+     \item Tracing policies vary across jurisdictions - states with strict regulations having an artificially high number of out-of-state traces.
+     \item Not all guns submitted for tracing are successfully traced to a source state.
+ \end{itemize}
+
+\end{frame}
+
+
+\renewcommand{\sectiontitle}{Analysis of Trafficking Patterns}
+\section{\sectiontitle}
+%\customToC{currentsection,hideothersubsections}{}
+
+\begin{frame}{\sectiontitle}
+\begin{itemize}
+    \item The parameter $\gamma$ is identified by measuring the extent to which trafficking patterns reflect differences in regulations, and the parameter $\theta$ is identified by measuring the extent to which trafficking patterns reflect the physical distance between two states.
+\end{itemize}
+\begin{equation*}
+    ln(m_{ds})-ln(m_{dd})=-\phi - \gamma (r_{s}-r_{d}) + \delta(X_{s}-X_{d})-\theta\tau_{ds} + (\nu_{s}-\nu_{d}) + (\xi_{ds}-\xi_{dd})
+\end{equation*}
+
+\end{frame}
+
+\renewcommand{\subsectiontitle}{Baseline Results}
+\subsection{\subsectiontitle}
+% \customToC{currentsection,hideothersubsections}{}
+
+\begin{frame}{\subsectiontitle}
+
+\begin{minipage}{0.5\textwidth}
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=7cm]{Screenshot 2023-02-09 012332}
+    %\caption{An image of a galaxy}
+    %\label{fig:galaxy}
+\end{figure}
+\end{minipage} \hfill
+\begin{minipage}{0.5\textwidth}
+    \begin{itemize}
+        \item Key necessary condition for cross-state externalities associated with gun regulations is satisfied
+        \item Coefficient on the difference between source and destination regulations has the expected sign. The coefficient on the distance between the two states also has the expected sign.
+        \item Column 2 relaxes the restriction that source and destination regulations to have equal and opposite effects.
+        \item In column 3, assumption that every law in the index of ten regulations has the same effect is relaxed
+    \end{itemize}
+\end{minipage}
+\end{frame}
+
+\renewcommand{\subsectiontitle}{Alternative Explanations}
+\subsection{\subsectiontitle}
+% \customToC{currentsection,hideothersubsections}{}
+
+\begin{frame}{\subsectiontitle}
+
+\begin{minipage}{0.5\textwidth}
+\begin{figure}[htp]
+   \centering
+   \includegraphics[width=7cm]{Screenshot 2023-02-09 020518}
+    %\caption{An image of a galaxy}
+    %\label{fig:galaxy}
+\end{figure}
+\end{minipage} \hfill
+\begin{minipage}{0.5\textwidth}
+    \begin{itemize}
+        \item Not all jurisdictions follow comprehensive tracing, and this may lead out of state traces to be artificially higher in states with strict regulations.
+        \item Interstate migration - these patterns in the data simply reflect population flows.
+        \item Mobile criminals - criminals from the source state are crossing the border to commit crimes.
+        \item Endogeneity of gun laws - analysis of tracing patterns does not require that gun laws are independent of demand conditions in the destination state.
+    \end{itemize}
+\end{minipage}
+
+\end{frame}
+
+\renewcommand{\subsectiontitle}{Equivalent Uniform Regulations}
+\subsection{\subsectiontitle}
+% \customToC{currentsection,hideothersubsections}{}
+
+\begin{frame}{\subsectiontitle}
+
+\begin{minipage}{0.5\textwidth}
+\begin{figure}[htp]
+   \centering
+   \includegraphics[width=7cm]{Screenshot 2023-02-09 022232}
+    %\caption{An image of a galaxy}
+    %\label{fig:galaxy}
+\end{figure}
+\end{minipage} \hfill
+\begin{minipage}{0.5\textwidth}
+    \begin{itemize}
+        \item States with strict regulations tend to have their regulations weakened by other states.
+        \item Spatial proximity to states with weak regulations matters.
+        \item State size matters, with small states being more affected by trafficking.
+
+    \end{itemize}
+\end{minipage}
+
+\end{frame}
+
+
+
+
+\renewcommand{\sectiontitle}{Analysis of Criminal Possession Rates}
+\section{\sectiontitle}
+%\customToC{currentsection,hideothersubsections}{}
+
+\begin{frame}{\sectiontitle}
+\begin{equation*}
+        o_{d}=ln[\frac{Pr(g_{cd}=1)}{Pr(g_{cd}=0}]=\frac{\rho}{\alpha+\rho}\beta + \frac{\rho}{\alpha+\rho}\lambda e_{d}(r) + \frac{\alpha}{\alpha+\rho}\nu_{d}
+    \end{equation*}
+ 
+    \begin{minipage}{0.5\textwidth}
+\begin{figure}[htp]
+   \centering
+   \includegraphics[width=7cm]{Screenshot 2023-02-09 031310}
+    %\caption{An image of a galaxy}
+    %\label{fig:galaxy}
+\end{figure}
+\end{minipage} \hfill
+\begin{minipage}{0.5\textwidth}
+       \begin{itemize}
+        \item State regulations have externalities - an increase in the stringency of regulations in a source state reduces criminal possession in other states.
+        \item After controlling for domestic regulations, the exposure index has an even stronger effect on criminal possession rates
+        \item Regulations in other states influence criminal possession of guns.
+
+    \end{itemize}
+\end{minipage}
+
+\end{frame}
+
+
+\renewcommand{\sectiontitle}{Conclusions}
+\section{\sectiontitle}
+%\customToC{currentsection,hideothersubsections}{}
+
+\begin{frame}{\sectiontitle}
+    \begin{itemize}
+        \item A theoretical and empirical analysis of cross-state externalities associated with state-level gun regulations is provided.
+        \item Trafficking flows respond to gun regulations, with guns imported from states with weak regulations into states with strict regulations.
+        \item Proximity matters, with trafficking flows more significant between two nearby states than between two distant states.
+        \item Consistent with the existence of cross-state externalities, criminal possession rates tend to be higher in states exposed to weak regulations in other states.
+    \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{\sectiontitle}
+    \begin{itemize}
+        \item There are many examples of cross-state externalities associated with policies set under decentralization.
+        \item Public goods, such as highways, may be used by nonresidents, and, to the extent that benefits to these nonresidents are not internalized by policymakers, provision will be too low under decentralization.
+        \item Goods associated with consumption externalities, such as cigarettes, fireworks, and alcohol, may be inefficiently taxed under decentralization to the extent that consumers can cross borders in search of lower-priced goods.
+        \item Firms may be underregulated when pollution crosses borders and policymakers fail to internalize the costs to nonresidents.
+
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+    
+    \begin{figure}[htp]
+    \centering
+    \includegraphics[width=8cm]{ty}
+    %\caption{An image of a galaxy}
+    %\label{fig:galaxy}
+\end{figure}
+
+\end{frame}
+
+
+\end{document}
